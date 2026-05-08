@@ -1,8 +1,24 @@
-.example-card {
-  max-width: 400px;
+:host {
+  display: block;
+  min-height: 100vh;
+  //background: lightpink;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.dev/assets/img/examples/shiba1.jpg');
-  background-size: cover;
+.principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+  gap: 1rem;
+  //background-color: bisque;
+}
+
+
+.principal-card {
+  max-width: 50rem;
+  color: blueviolet 
+}
+
+.title {
+  margin-bottom: 1rem;
 }
