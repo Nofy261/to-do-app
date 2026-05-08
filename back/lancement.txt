@@ -1,0 +1,21 @@
+Lancer postgreSql -> docker compose up -d
+Verifier si il est bien lancer -> docker ps
+arrter le docker -> docker stop todo-postgres
+
+
+lancer le back -> ./mvnw spring-boot:run
+
+Entrer dans la db-> docker exec -it todo-postgres bash
+-> psql -U nofy -d todo_db
+
+Voir la table task
+SELECT * FROM Task;
+
+
+Commande curl methode POST
+Commande curl dans terminal normal et pas dans la db
+
+Ouvrir un autre onglet:
+curl -X POST http://localhost:8080/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title":"...","done":...}'

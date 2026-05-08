@@ -1,0 +1,5 @@
+/home/nolecler/Desktop/test/back/src/main/java/com/todoapp/todo/TodoApplication.java
+/home/nolecler/Desktop/test/back/src/main/java/com/todoapp/todo/controller/TaskController.java
+/home/nolecler/Desktop/test/back/src/main/java/com/todoapp/todo/entity/Task.java
+/home/nolecler/Desktop/test/back/src/main/java/com/todoapp/todo/repository/TaskRepository.java
+/home/nolecler/Desktop/test/back/src/main/java/com/todoapp/todo/service/TaskService.java
