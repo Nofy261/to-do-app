@@ -5,6 +5,9 @@ arrter le docker -> docker stop todo-postgres
 
 lancer le back -> ./mvnw spring-boot:run
 
+lancer front Angular -> ng serve
+
+
 Entrer dans la db-> docker exec -it todo-postgres bash
 -> psql -U nofy -d todo_db
 
@@ -19,3 +22,11 @@ Ouvrir un autre onglet:
 curl -X POST http://localhost:8080/tasks \
   -H "Content-Type: application/json" \
   -d '{"title":"...","done":...}'
+  
+  ----
+  
+[ Docker ] → DB (Postgres)  --> les donnees
+     ↓
+[ Spring ] → API (8080) --> logique backend
+     ↓
+[ Angular ] → UI (4200) --> interface utilisateur
