@@ -1,23 +1,24 @@
+
+
 <div class="principal">
 	<h1 class="title">My To-Do App</h1>
-	<mat-card class="principal-card" appearance="outlined">
-		<mat-card-content>
-			<p>Courrir 1h30 🏃</p>
-		</mat-card-content>
-		<mat-card-actions>
-			<button mat-button>DONE</button>
-			<button mat-button>DELETE</button>
-		</mat-card-actions>
-	</mat-card>
+		<div class="add-task"> 
+			<input [(ngModel)]="newTask" placeholder="Add new task">
+			<button mat-button (click)="addTask()">ADD</button>
+		</div>
+	@for (task of tasks; track task; let i = $index) {
 		<mat-card class="principal-card" appearance="outlined">
-		<mat-card-content>
-			<p>Faire les courses </p>
-		</mat-card-content>
-		<mat-card-actions>
-			<button mat-button>DONE</button>
-			<button mat-button>DELETE</button>
-		</mat-card-actions>
-	</mat-card>
+			<mat-card-content>
+				<p [class.done]="task.done">
+					{{ task.title }}
+				</p>
+			</mat-card-content>
+			<mat-card-actions>
+				<button mat-button (click)="toggleDone(i)">DONE</button>
+				<button mat-button (click)="deleteTask(i)">DELETE</button>
+			</mat-card-actions>
+		</mat-card>
+	}
 </div>
 
 
