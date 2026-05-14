@@ -33,6 +33,10 @@ export class TaskService {
     getTasks(): Observable<Task[]> {
         return this.http.get<Task[]>(this.apiUrl); //envoie un GET vers le back
     }
+
+    createTask(task: Task): Observable<Task> {
+        return this.http.post<Task>(this.apiUrl, task);
+    }
 }
 
 //Observable : Angular reçoit les donnees de façon asynchrone
