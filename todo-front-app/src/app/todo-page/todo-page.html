@@ -6,7 +6,7 @@
 			<input [(ngModel)]="newTask" placeholder="Add new task">
 			<button mat-button (click)="addTask()">ADD</button>
 		</div>
-	<div *ngFor="let task of tasks; let i = index">
+	@for (task of tasks ?? []; track task; let i = $index) {
 		<mat-card class="principal-card" appearance="outlined">
 			<mat-card-content>
 				<p [class.done]="task.done">
@@ -18,7 +18,7 @@
 				<button mat-button (click)="deleteTask(i)">DELETE</button>
 			</mat-card-actions>
 		</mat-card>
-	</div>
+	}
 </div>
 
 

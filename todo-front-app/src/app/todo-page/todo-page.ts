@@ -2,75 +2,36 @@ import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card'
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 import { TaskService } from '../services/task.service';
 import { Task } from '../models/task.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo-page',
-  imports: [MatCardModule, MatButtonModule, FormsModule, CommonModule],
+  imports: [MatCardModule, MatButtonModule, FormsModule],
   templateUrl: './todo-page.html',
   styleUrl: './todo-page.scss',
 })
-// export class TodoPage implements OnInit {
-
-//   tasks: Task[] = [];
-//   newTask = '';
-
-//   constructor(private taskService: TaskService) {}
-
-//   ngOnInit(): void {
-//     this.loadTasks();
-//   }
-
-//   loadTasks() {
-//     this.taskService.getTasks().subscribe((data) => {
-//       this.tasks = data;
-//     });
-//   }
-
-//   addTask() {
-//     if (!this.newTask.trim()) return;
-
-//     const task: Task = {
-//       title: this.newTask,
-//       done: false
-//     };
-
-//     this.taskService.createTask(task).subscribe(() => {
-//       this.loadTasks();
-//       this.newTask = '';
-//     });
-//   }
-
-//   deleteTask(index: number) {
-//     console.log('backend à faire après');
-//   }
-
-//   toggleDone(index: number) {
-//     console.log('backend à faire après');
-//   }
-// }
-
-
-
-
 export class TodoPage implements OnInit {
 
   tasks: Task[] = [];
   newTask = '';
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    console.log('COMPONENT INIT');
     this.loadTasks();
   }
 
   loadTasks() {
     this.taskService.getTasks().subscribe((data) => {
-      this.tasks = data;
+      this.tasks = [...data];
+      this.cdr.detectChanges();
     });
   }
 
@@ -82,23 +43,39 @@ export class TodoPage implements OnInit {
       done: false
     };
 
-    this.taskService.createTask(task).subscribe({
-      next: (res) => {
-        console.log('POST OK:', res);
-        this.loadTasks();
-        this.newTask = '';
-      },
-      error: (err) => {
-        console.error('POST ERROR:', err);
-      }
+    this.taskService.createTask(task).subscribe(() => {
+      this.loadTasks();
+      this.newTask = '';
     });
   }
 
   deleteTask(index: number) {
-    console.log('backend à faire après');
+    const id = this.tasks[index].id;
+
+    if (id === undefined) return;
+
+    this.taskService.deleteTask(id).subscribe(() => {
+      this.loadTasks();
+    });
   }
 
-  toggleDone(index: number) {
-    console.log('backend à faire après');
+  toggleDone(i: number) {
+
+    const task = this.tasks[i];
+
+    const updatedTask = {
+      ...task,
+      done: !task.done
+    };
+    
+    if (task.id === undefined) return;
+
+    this.taskService.toggleDone(task.id, updatedTask).subscribe(() => {
+      this.loadTasks();
+    });
   }
 }
+
+
+// fichier de logique front 
+

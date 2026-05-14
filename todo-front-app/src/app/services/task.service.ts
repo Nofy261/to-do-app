@@ -1,3 +1,4 @@
+// fichier pour  communiquer au back
 // comment parler au backend
 // Créer un service Angular capable de faire :
 // GET http://localhost:8080/tasks
@@ -36,6 +37,15 @@ export class TaskService {
 
     createTask(task: Task): Observable<Task> {
         return this.http.post<Task>(this.apiUrl, task);
+    }
+
+    deleteTask(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+        //envoie une requete delete au back pour supprimer une tache
+    }
+
+    toggleDone(id: number, task: Task): Observable<Task> {
+        return this.http.put<Task>(`${this.apiUrl}/${id}`, task);
     }
 }
 
