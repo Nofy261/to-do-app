@@ -9,9 +9,18 @@
 	@for (task of tasks ?? []; track task; let i = $index) {
 		<mat-card class="principal-card" appearance="outlined">
 			<mat-card-content>
-				<p [class.done]="task.done">
-					{{ task.title }}
-				</p>
+
+				@if (selectedTaskIndex === i) {
+					<input 
+						[(ngModel)]="editTaskTitle"
+						placeholder="Edit task..."
+					>
+					<button (click)="saveTask(i)">SAVE</button>
+				}
+				@else {
+					<p [class.done]="task.done">{{ task.title }}</p>
+					<button mat-button (click)="updateTask(i)">UPDATE</button>
+				}		
 			</mat-card-content>
 			<mat-card-actions>
 				<button mat-button (click)="toggleDone(i)">DONE</button>

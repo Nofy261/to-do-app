@@ -70,10 +70,40 @@ export class TodoPage implements OnInit {
     
     if (task.id === undefined) return;
 
-    this.taskService.toggleDone(task.id, updatedTask).subscribe(() => {
+    this.taskService.updateTask(task.id, updatedTask).subscribe(() => {
       this.loadTasks();
     });
   }
+
+  selectedTaskIndex: number | null = null;
+  editTaskTitle = '';
+
+  updateTask(i: number) {
+    const task = this.tasks[i];
+
+    this.selectedTaskIndex = i;
+    this.editTaskTitle = task.title;
+  }
+
+  saveTask(i : number) {
+
+    const task = this.tasks[i];
+
+    const updatedTask = {
+      ...task,
+      title: this.editTaskTitle
+    };
+
+    if (task.id === undefined) return;
+
+    this.taskService.updateTask(task.id, updatedTask).subscribe(() => {
+      this.loadTasks();
+      this.selectedTaskIndex = null;
+      this.editTaskTitle = '';
+    });
+  
+  }
+
 }
 
 

@@ -44,7 +44,7 @@ export class TaskService {
         //envoie une requete delete au back pour supprimer une tache
     }
 
-    toggleDone(id: number, task: Task): Observable<Task> {
+    updateTask(id: number, task: Task): Observable<Task> {
         return this.http.put<Task>(`${this.apiUrl}/${id}`, task);
     }
 }
